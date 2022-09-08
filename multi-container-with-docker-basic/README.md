@@ -31,7 +31,7 @@ docker run --name mongodb -d --rm --network multi-setup mongo
 ### backend sh
 
 docker build -t backend .
-docker run --name backend-app -d --rm --network multi-setup -p 80:80 -v logs:/app/logs -v /Users/nhn/study/udemy/docker_kubernetes/multi-01-starting-setup/backend:/app -v /app/node_modules -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \backend
+docker run --name backend-app -d --rm --network multi-setup -p 80:80 -v logs:/app/logs -v [real_full_path]:/app -v /app/node_modules -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \backend
 
 바인드 마운트로 로컬과 컨테이너 연결 후 javascript 수정을 바로 적용하고 싶으면 node를 재시작해야하는데 
 nodemon dependency를 이용하여 해결할 수 있음
@@ -43,7 +43,7 @@ command에 명시하지 않으면 default로 Dockerfile에 명시한 값
 ### frontend sh
 
 docker build -t frontend .
-docker run --name frontend-app -d --rm -p 3000:3000 /Users/nhn/study/udemy/docker_kubernetes/multi-01-starting-setup/frontend/src:/app/src -it frontend
+docker run --name frontend-app -d --rm -p 3000:3000 [real_full_path]:/app/src -it frontend
 
 ### 그 외
 
