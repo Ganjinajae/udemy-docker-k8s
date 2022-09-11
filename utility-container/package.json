@@ -1,0 +1,11 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "**Utility Container**: 공식적인 용어는 아님. 애플리케이션을 포함하지 않고 특정 명령을 실행하는데 사용할 수 있는 환경만 존재 사용 이유: 로컬에 모든 도구를 설치하지 않고도 특정한 것을 설정할 수 있다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
