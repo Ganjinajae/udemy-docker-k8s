@@ -13,3 +13,7 @@ docker-compose의 디폴트 명령으로는 적용되지 않는다.
 
 `docker-compose run --rm artisan migrate`
 유틸리티 컨테이너 테스트 명령
+
+Dockerfile 대신 docker-compose.yaml에서 대신할 수 있는 명령들이 있다.
+entrypoint, working_dir 가 그 예
+COPY나 CMD는 불가하여 Dockerfile을 쓰는 것이 권장된다.
