@@ -14,7 +14,16 @@ services:
     volumes:
       - ./src:/var/www/html:delegated # 안정성은 떨어지나 성능을 향상시키는 볼륨 플래그(지금은 사용하지 않는 듯 함)
     # port는 컨테이너끼리 직접 통신하고 docker-compose로 인해 네트워크를 형성해서 이름으로 네트워킹할 수 있다. nginx.conf에 반영되어 있음
-  # mysql:
-  # composer:
+  mysql:
+    image: myslq:5.7
+    env_file:
+      - ./env/mysql.env
+  # Laravel에 의해 내부적으로 사용됨
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
   # artisan:
   # npm:
