@@ -10,3 +10,6 @@ Dockerfile이 변경되거나 Dockerfile을 통해 복사된 일부 파일이 �
 docker-compose의 디폴트 명령으로는 적용되지 않는다.
 --build를 추가하여 변경 사항이 있는 경우 이미지를 다시 생성하도록 강제한다.
 이미지의 레이어 개념으로 인해 레이어가 캐시되기 때문에 변경 사항이 없는 경우는 리빌드 되지 않는다.
+
+`docker-compose run --rm artisan migrate`
+유틸리티 컨테이너 테스트 명령
