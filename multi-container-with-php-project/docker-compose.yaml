@@ -2,22 +2,27 @@ version: '3.8'
 
 services:
   server:
-    image: 'nginx:stable-alpine'
+    # image: 'nginx:stable-alpine'
+    build:
+      context: . # nginx.dockerfile에서 쓰는 src는 dockerfiles 폴더 외부에 위치해 접근할 수 없어 context(범위)를 전체로 설정한다.
+      dockerfile: dockerfiles/nginx.dockerfile
     ports:
       - '8000:80'
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    # 개발 시에는 volume을 적극적으로 활용할 수 있지만 빌드, 배포시에는 사용할 수 없기 때문에 이미지에 스냅샷을 컨테이너에 복사한다.
+    # volume으로 얻을 수 있었던 것은 소스 코드 변화가 바로 적용이 되는 것
+    # volumes:
+    #   - ./src:/var/www/html
+    #   - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     # server는 mysql, php 서비스와 통신할 수 있을 때 작동하며 docker-compose up server 명령어만으로 의존성을 가진 php, mysql 서비스가 같이 띄워진다.
     depends_on:
       - mysql
       - php
   php:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
-    volumes:
-      - ./src:/var/www/html:delegated # 안정성은 떨어지나 성능을 향상시키는 볼륨 플래그(지금은 사용하지 않는 듯 함)
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    # volumes:
+    #   - ./src:/var/www/html:delegated # 안정성은 떨어지나 성능을 향상시키는 볼륨 플래그(지금은 사용하지 않는 듯 함)
     # port는 컨테이너끼리 직접 통신하고 docker-compose로 인해 네트워크를 형성해서 이름으로 네트워킹할 수 있다. nginx.conf에 반영되어 있음
   mysql:
     image: mysql:5.7

@@ -17,3 +17,6 @@ docker-compose의 디폴트 명령으로는 적용되지 않는다.
 Dockerfile 대신 docker-compose.yaml에서 대신할 수 있는 명령들이 있다.
 entrypoint, working_dir 가 그 예
 COPY나 CMD는 불가하여 Dockerfile을 쓰는 것이 권장된다.
+
+컨테이너 내부에서 작업하는 경우 컨테이너의 읽기 및 쓰기를 제한하는 경우가 발생한다.
+-> 컨테이너 특정 폴더에 대한 쓰기 액세스 권한을 부여한다.
