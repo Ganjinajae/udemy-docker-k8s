@@ -86,3 +86,8 @@ homebrew로 설치
 `kubectl rollout history deployment/first-app --revision=3` 이런 식으로 revision에 대한 상세 정보를 살펴볼 수 있다.
 `kubectl rollout undo deployment/first-app --to-revision=1` 특정 revision으로 rollback할 수 있다.
 
+### Imperative(명령형) vs Declaritive(선언형)
+
+Imperative: `docker run` 명령어를 쓸 때와 같이 `kubectl create deployment ...` 이런 식으로 명령어를 커맨드 창에 입력해야하는 형태
+Declaritive: `docker-compose`와 같이 .yaml 파일에 구성해놓고 사용하는 형태. ex) `kubectl apply -f config.yaml`
+

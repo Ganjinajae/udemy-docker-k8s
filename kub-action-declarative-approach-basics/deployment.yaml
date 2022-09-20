@@ -1,0 +1,30 @@
+# 파일 이름은 아무거나 상관없다.
+# 다양한 apiVersion 사용가능하며 docs를 참고하면 좋다.
+apiVersion: apps/v1
+# 생성하려고 하는 항목. 쿠버네티스 객체 종류(ex. Service, Job ...)
+kind: Deployment
+# 생성하는 객체의 이름과 같은 데이터를 포함한다. kubectl create deployment first-app 과 같이
+metadata:
+  name: second-app-deployment
+spec:
+  # pod 디폴트 값 1. 여기서는 3개의 pod
+  replicas: 1
+  # 생성되어야 하는 pod를 정의. kubectl create deployment first-app --image=...와 같이
+  selector:
+    matchLabels: # matchExpressions로도 가능. 더 복잡한 selector
+    # deployment에 의해 제어되어야 하는 pod 레이블의 키-값 쌍을 명시한다.
+    # deployment에 속한 pod를 deployment에게 알려준다고 볼 수 있다.
+      app: second-app
+      tier: backend
+  template:
+  # 여기서 kind는 무조건 pod이기 때문에 지정할 필요없음
+    metadata:
+      labels:
+        app: second-app # 원하는 키 값으로 지정 가능
+        # 주어진 객체에 하나 이상의 레이블을 가질 수 있다.
+        tier: backend
+    # pod에 대한 사양
+    spec:
+      containers:
+        - name: second-node
+          image: ganjinajae/kub-first-app:2 # 이미지의 전체 저장소 이름
