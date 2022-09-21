@@ -37,3 +37,9 @@ matchExpressions가 더 많은 구성 옵션을 가진 항목을 선택하는 �
 ### 특정 레이블 별 삭제
 
 `kubectl delete deployments,services -l group=example` 특정 레이블 삭제(여기서는 group=example이라는 레이블을 가지는 deployment, service 객체 삭제)
+
+### liveness probes
+
+pod/컨테이너가 실행가능한 상태인지 health check할 수 있는 설정이다.
+deployment.yaml에 설정 후 minikube dashboard에서 파드 이벤트에서 실패하는 http path를 명시해놓으면 확인가능하다.
+보통은 성공하는 path를 넣어놓아서 health를 체크하겠지만.
