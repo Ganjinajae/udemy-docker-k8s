@@ -19,3 +19,10 @@
 `kubectl delete -f=deployment.yaml,service.yaml`
 or
 `kubectl delete -f=deployment.yaml -f=service.yaml`
+
+### 다중 vs 단일 config 파일
+
+config 파일을 하나로 묶는 것도 가능하다.
+`---`로 구분하며 service 객체 관련 config 설정을 먼저 명시하는 것을 권장
+
+`kubectl apply -f master-deployment.yaml`

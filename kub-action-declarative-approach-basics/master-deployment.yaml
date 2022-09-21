@@ -1,0 +1,58 @@
+# 보통 service가 먼저 생성되는 것이 권장되며
+# 지속적으로 모니터링을 하기 때문에 pod가 후에 생성되어도 자동으로 연결한다.
+apiVersion: v1 # core 생략 가능
+kind: Service
+metadata:
+  name: backend
+spec:
+  # 리소스에게 제어되거나 연결되어야 하는 다른 리소스를 식별한다.
+  # 여기서는 service의 일부가 되어야 하는 pod를 정의한다.
+  selector:
+    # 모든 pod가 연결될 필요는 없다.
+    # 아래와 같은 표현은 app:second-app 레이블을 가진 모든 pod는 service에 의해 제어된다.
+    app: second-app
+    # tier: backend
+  ports: # 하나 이상의 port를 노출할 수 있다.
+    - protocol: 'TCP' # default
+      port: 80 # 노출하고자 하는 외부 세계의 포트
+      targetPort: 8080 # 컨테이너 내부 app.js에서 수신대기하는 port
+    # 여러 pod가 있는 경우에 여러 개 정의 가능
+    # - protocol: 'TCP'
+    #   port: 443
+    #   targetPort: 443
+  type: LoadBalancer 
+  # default는 ClusterIP(내부적으로 노출되는 IP, 클러스터 내부에서만 액세스하는)
+  # 외부 세계에 노출할 때 일반적으로 사용되는 것이 LoadBalancer (인프라의 로드밸런서를 이용한다.)
+  
+  # kubectl expose deployment first-app --port... --type=LoadBalancer
+---
+# 파일 이름은 아무거나 상관없다.
+# 다양한 apiVersion 사용가능하며 docs를 참고하면 좋다.
+apiVersion: apps/v1
+# 생성하려고 하는 항목. 쿠버네티스 객체 종류(ex. Service, Job ...)
+kind: Deployment
+# 생성하는 객체의 이름과 같은 데이터를 포함한다. kubectl create deployment first-app 과 같이
+metadata:
+  name: second-app-deployment
+spec:
+  # pod 디폴트 값 1. 여기서는 3개의 pod
+  replicas: 1
+  # 생성되어야 하는 pod를 정의. kubectl create deployment first-app --image=...와 같이
+  selector:
+    matchLabels: # matchExpressions로도 가능. 더 복잡한 selector
+    # deployment에 의해 제어되어야 하는 pod 레이블의 키-값 쌍을 명시한다.
+    # deployment에 속한 pod를 deployment에게 알려준다고 볼 수 있다.
+      app: second-app
+      tier: backend
+  template:
+  # 여기서 kind는 무조건 pod이기 때문에 지정할 필요없음
+    metadata:
+      labels:
+        app: second-app # 원하는 키 값으로 지정 가능
+        # 주어진 객체에 하나 이상의 레이블을 가질 수 있다.
+        tier: backend
+    # pod에 대한 사양
+    spec:
+      containers:
+        - name: second-node
+          image: ganjinajae/kub-first-app:2 # 이미지의 전체 저장소 이름
