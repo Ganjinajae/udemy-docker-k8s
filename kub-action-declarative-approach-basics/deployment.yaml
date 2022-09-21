@@ -33,6 +33,7 @@ spec:
       containers:
         - name: second-node
           image: ganjinajae/kub-first-app:2 # 이미지의 전체 저장소 이름
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /
