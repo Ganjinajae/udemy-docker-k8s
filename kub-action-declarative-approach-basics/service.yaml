@@ -2,6 +2,8 @@ apiVersion: v1 # core 생략 가능
 kind: Service
 metadata:
   name: backend
+  labels:
+    group: example
 spec:
   # 리소스에게 제어되거나 연결되어야 하는 다른 리소스를 식별한다.
   # 여기서는 service의 일부가 되어야 하는 pod를 정의한다.

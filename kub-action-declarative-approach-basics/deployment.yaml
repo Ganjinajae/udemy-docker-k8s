@@ -6,6 +6,8 @@ kind: Deployment
 # 생성하는 객체의 이름과 같은 데이터를 포함한다. kubectl create deployment first-app 과 같이
 metadata:
   name: second-app-deployment
+  labels:
+    group: example
 spec:
   # pod 디폴트 값 1. 여기서는 3개의 pod
   replicas: 1
@@ -16,6 +18,9 @@ spec:
     # deployment에 속한 pod를 deployment에게 알려준다고 볼 수 있다.
       app: second-app
       tier: backend
+    # matchExpressions:
+    #   # 중괄호로 묶고 key-value 형식. operator는 쓸 수 있는 키워드가 정해져있다.
+    #   - {key: app, operator: In, values: [second-app, first-app]}
   template:
   # 여기서 kind는 무조건 pod이기 때문에 지정할 필요없음
     metadata:
