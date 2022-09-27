@@ -14,4 +14,13 @@ spec:
     spec:
       containers:
         - name: story
-          image: ganjinajae/kub-data-demo
+          image: ganjinajae/kub-data-demo:1
+          volumeMounts:
+            # Dockerfile에서 설정한 WORKDIR에 app.js의 filePath에서 지정한 story폴더
+            # 마운트 되는 빈 디렉토리가 있는 컨테이너의 경로
+            - mountPath: /app/story
+              name: story-volume # 컨테이너 내부 경로에 사용할 볼륨 이름
+      volumes:
+        - name: story-volume
+          # Pod가 시작될 때마다 단순히 새운 빈 디렉토리를 생성
+          emptyDir: {}
