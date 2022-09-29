@@ -16,3 +16,10 @@ hostPath는 노드에 특정적. 여러 pod, 다른 노드에서 실행되는 �
 
 `CSI(Container Storage Interface)`: 전 세계 모든 스토리지 솔루션 연결 가능Cloud Provider(Amazone EFS 등.쿠버네티스 볼륨의 스토리지 솔루션으로 추가하는 것이 쉽다.
 로컬 개발에서 필요하진 않음
+
+### 영구 볼륨(Persistent Volume, PV)
+
+pod와 노드에 떨어져 독립적으로 존재
+한 번만 정의해놓으면 다른 pod에서 사용할 수 있음
+
+`PV Claim(Persistent Volume Claim)`: PV에 액세스를 요청할 수 있음. 서로 다른 노드에서 서로 다른 PV에 접근 가능.
