@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: host-pvc
+spec:
+  volumeName: host-pv
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  # pv의 capacity에 대응된다. 이 클레임에 대해 얻고자 하는 리소스를 지정할 수 있다.
+  resources:
+    requests:
+      storage: 1Gi # 영구 볼륨에 대한 storage 용량보다 작거나 같게 요청해야한다.
+    

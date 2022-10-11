@@ -23,8 +23,6 @@ spec:
       volumes:
         - name: story-volume
           # Pod가 시작될 때마다 단순히 새운 빈 디렉토리를 생성
-          hostPath: # 바인드 마운트와 비슷
-            # 호스트 머신의 경로
-            path: /data
-            type: DirectoryOrCreate # 디렉토리 존재하지 않으면 생성
+          persistentVolumeClaim:
+            claimName: host-pvc
 
