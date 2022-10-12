@@ -18,5 +18,3 @@ spec:
           env:
             - name: AUTH_ADDRESS
               value: localhost # 동일한 pod에서 실행되는 컨테이너가 서로 통신하는 경우에 사용 가능하다. 특수한 주소
-          name: auth
-          image: ganjinajae/kub-demo-auth:latest
